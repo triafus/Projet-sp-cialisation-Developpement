@@ -1,7 +1,3 @@
-/**
- * Point d'entrée principal de la SPA
- */
-
 import './style.css';
 
 const app = document.querySelector('#app');

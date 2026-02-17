@@ -2,7 +2,7 @@
   "name": "projet-sp-cialisation-developpement",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,7 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/triafus/Projet-sp-cialisation-Developpement/issues"
   },
@@ -26,5 +25,8 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "vite": "^6.4.1"
+  },
+  "dependencies": {
+    "axios": "^1.13.5"
   }
 }
