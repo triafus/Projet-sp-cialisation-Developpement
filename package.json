@@ -1,0 +1,30 @@
+{
+  "name": "projet-sp-cialisation-developpement",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/triafus/Projet-sp-cialisation-Developpement.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/triafus/Projet-sp-cialisation-Developpement/issues"
+  },
+  "homepage": "https://github.com/triafus/Projet-sp-cialisation-Developpement#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "vite": "^6.4.1"
+  }
+}
