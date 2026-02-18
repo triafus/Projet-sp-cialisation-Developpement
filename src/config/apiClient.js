@@ -1,31 +1,29 @@
 import axios from 'axios';
+import { ROUTES } from '../routes/routes';
 
 export const API_BASE_URL = "http://localhost:5000/api";
 
-const apiClient = {
-  async get(endpoint) {
-    return axios.get(`${API_BASE_URL}${endpoint}`)
-      .then(response => response.data)
-      .catch(error => console.error(error));
-  },
+const instance = axios.create({
+  baseURL: API_BASE_URL
+});
 
-  async post(endpoint, data) {
-    return axios.post(`${API_BASE_URL}${endpoint}`, data)
-      .then(response => response.data)
-      .catch(error => console.error(error));
-  },
-
-  async put(endpoint, data) {
-    return axios.put(`${API_BASE_URL}${endpoint}`, data)
-      .then(response => response.data)
-      .catch(error => console.error(error));
-  },
-
-  async delete(endpoint) {
-    return axios.delete(`${API_BASE_URL}${endpoint}`)
-      .then(response => response.data)
-      .catch(error => console.error(error));
+instance.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      window.location.href = ROUTES.AUTH;
+    }
+    return Promise.reject(error);
   }
+);
+
+const apiClient = {
+  get: (endpoint) => instance.get(endpoint).then(res => res.data),
+  post: (endpoint, data) => instance.post(endpoint, data).then(res => res.data),
+  put: (endpoint, data) => instance.put(endpoint, data).then(res => res.data),
+  delete: (endpoint) => instance.delete(endpoint).then(res => res.data)
 };
 
 export default apiClient;

@@ -1,46 +1,35 @@
 import apiClient from '../config/apiClient';
-import { MOCK_PRODUCTS } from '../utils/mocks/product';
-
-const USE_MOCKS = true;
 
 export const ProductService = {
-  getAll() {
-    if (USE_MOCKS) {
-      return Promise.resolve(MOCK_PRODUCTS)
-        .then(data => data);
-    }
-    return apiClient.get('/produits');
+  async getAll() {
+    return apiClient.get('/produits').then(data => {
+      return data.produits || [];
+    });
   },
 
-  getById(id) {
-    if (USE_MOCKS) {
-      return Promise.resolve(MOCK_PRODUCTS.find(p => p.id === parseInt(id)))
-        .then(data => data);
-    }
-    return apiClient.get(`/produits/${id}`);
+  async getById(id) {
+    return apiClient.get(`/produits/${id}`).then(data => {
+      return data.produit || data;
+    });
   },
 
-  create(productData) {
-    if (USE_MOCKS) {
-      return Promise.resolve({ ...productData, id: Date.now() })
-        .then(data => data);
-    }
-    return apiClient.post('/produits', productData);
+  async create(productData) {
+    return apiClient.post('/produits', productData).then(data => {
+      return data;
+    });
   },
 
-  update(id, productData) {
-    if (USE_MOCKS) {
-      return Promise.resolve({ ...productData, id: parseInt(id) })
-        .then(data => data);
-    }
-    return apiClient.put(`/produits/${id}`, productData);
+  async update(id, productData) {
+    return apiClient.put(`/produits/${id}`, productData).then(data => {
+      return data;
+    });
   },
 
-  delete(id) {
-    if (USE_MOCKS) {
-      return Promise.resolve({ success: true })
-        .then(data => data);
-    }
-    return apiClient.delete(`/produits/${id}`);
-  }
+  async delete(id) {
+    return apiClient.delete(`/produits/${id}`).then(data => {
+      return data;
+    });
+  },
+
+
 };

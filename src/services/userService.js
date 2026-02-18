@@ -1,27 +1,18 @@
 import apiClient from '../config/apiClient';
-import { MOCK_USERS } from '../utils/mocks/user';
-
-const USE_MOCKS = true;
 
 export const UserService = {
-  login(mail, mdp) {
-    if (USE_MOCKS) {
-      const user = MOCK_USERS.find(u => u.mail === mail && u.mdp === mdp);
-      return Promise.resolve(user || null)
-        .then(data => {
-          return data;
-        });
-    }
-    return apiClient.post('/auth/connexion', { mail, mdp });
+  async login(mail, mdp) {
+    return apiClient.post('/auth/connexion', { mail, mdp })
+      .then(data => data.user || data);
   },
 
-  register(userData) {
-    if (USE_MOCKS) {
-      return Promise.resolve({ ...userData, id: Date.now() })
-        .then(data => {
-          return data;
-        });
-    }
+  async register(userData) {
     return apiClient.post('/auth/inscription', userData);
+  },
+
+  logout() {
+    localStorage.removeItem('user');
+    return Promise.resolve();
   }
 };
+  

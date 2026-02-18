@@ -2,7 +2,7 @@
   "name": "projet-sp-cialisation-developpement",
   "version": "1.0.0",
   "description": "",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,6 +27,8 @@
     "vite": "^6.4.1"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.2.0",
+    "@tailwindcss/vite": "^4.2.0",
     "axios": "^1.13.5"
   }
 }
