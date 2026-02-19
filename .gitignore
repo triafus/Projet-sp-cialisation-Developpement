@@ -21,5 +21,8 @@ Projet*.pdf
 Synth*.pdf
 *.pdf
 
+# TEXTES
+*.txt
+
 # Divers
 .DS_Store
