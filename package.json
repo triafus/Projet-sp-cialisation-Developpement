@@ -16,7 +16,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/triafus/Projet-sp-cialisation-Developpement/issues"
   },
@@ -26,5 +25,10 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "vite": "^6.4.1"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.2.0",
+    "@tailwindcss/vite": "^4.2.0",
+    "axios": "^1.13.5"
   }
 }
