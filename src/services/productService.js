@@ -1,10 +1,11 @@
 import apiClient from '../config/apiClient';
+import { MOCK_PRODUCTS } from '../utils/mocks/product';
 
 export const ProductService = {
   async getAll() {
     return apiClient.get('/produits').then(data => {
       return data.produits || [];
-    });
+    }).catch(() => MOCK_PRODUCTS);
   },
 
   async getById(id) {

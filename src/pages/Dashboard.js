@@ -3,10 +3,6 @@ import { ProductService } from '../services/productService';
 export const Dashboard = async () => {
   const products = await ProductService.getAll();
 
-  const handleEdit = (id) => {
-    console.log('Edit product', id);
-  };
-
   const handleDelete = (id) => {
     if (confirm('Voulez-vous vraiment supprimer ce produit ?')) {
       ProductService.delete(id).then(() => {

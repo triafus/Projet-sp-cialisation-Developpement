@@ -3,6 +3,8 @@ import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
 import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
+import { CSPReports } from './pages/CSPReports';
+import { Stats } from './pages/Stats';
 import { ROUTES } from './routes/routes';
 import { UserService } from './services/userService';
 
@@ -30,6 +32,10 @@ const navigate = async () => {
     content = Auth();
   } else if (path === ROUTES.DASHBOARD) {
     content = await Dashboard();
+  } else if (path === ROUTES.SECURITY) {
+    content = await CSPReports();
+  } else if (path === ROUTES.STATS) {
+    content = await Stats();
   } else {
     content = await Home();
   }
