@@ -7,6 +7,7 @@ import { CSPReports } from './pages/CSPReports';
 import { Stats } from './pages/Stats';
 import { ROUTES } from './routes/routes';
 import { UserService } from './services/userService';
+import { CartStore } from './states/cartStore';
 
 const app = document.querySelector('#app');
 
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', navigate);
 
 document.addEventListener('click', (e) => {
   const link = e.target.closest('a');
-  if (link && link.href.startsWith(window.location.origin)) {
+  if (link && link.href && link.href.startsWith(window.location.origin)) {
     e.preventDefault();
     window.history.pushState({}, '', link.getAttribute('href'));
     navigate();
@@ -68,5 +69,11 @@ document.addEventListener('click', (e) => {
       window.history.pushState({}, '', ROUTES.HOME);
       navigate();
     });
+  }
+
+  const addToCartBtn = e.target.closest('.add-to-cart');
+  if (addToCartBtn) {
+    const product = JSON.parse(addToCartBtn.dataset.product);
+    CartStore.addItem(product);
   }
 });
