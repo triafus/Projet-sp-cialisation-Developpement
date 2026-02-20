@@ -1,7 +1,8 @@
 export const MOCK_REPORTS = {
   reports: [
-    { directive: 'script-src', blockedUri: 'http://malicious-site.com/script.js', timestamp: new Date().toISOString() },
-    { directive: 'img-src', blockedUri: 'https://untracked-ads.net/pixel.gif', timestamp: new Date().toISOString() }
+    { directive: 'script-src', blockedUri: 'http://hacker-cdn.com/xss-payload.js', timestamp: new Date().toISOString() },
+    { directive: 'frame-ancestors (CRITICAL)', blockedUri: 'http://evil-iframe.org/clickjacking-attempt', timestamp: new Date().toISOString() },
+    { directive: 'connect-src', blockedUri: 'ws://botnet-controller.io/socket', timestamp: new Date().toISOString() }
   ]
 };
 

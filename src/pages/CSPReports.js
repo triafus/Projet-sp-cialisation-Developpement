@@ -1,7 +1,8 @@
 import { ReportService } from '../services/reportService';
 
 export const CSPReports = async () => {
-  const reports = await ReportService.getCSPReports().then(data => data.reports || []);
+  const data = await ReportService.getCSPReports();
+  const reports = data?.reports || [];
 
   return `
     <div class="space-y-6">

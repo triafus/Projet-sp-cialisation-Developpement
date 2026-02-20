@@ -7,6 +7,17 @@ const instance = axios.create({
   baseURL: API_BASE_URL
 });
 
+instance.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => Promise.reject(error)
+);
+
 instance.interceptors.response.use(
   response => response,
   error => {
@@ -20,10 +31,10 @@ instance.interceptors.response.use(
 );
 
 const apiClient = {
-  get: (endpoint) => instance.get(endpoint).then(res => res.data),
-  post: (endpoint, data) => instance.post(endpoint, data).then(res => res.data),
-  put: (endpoint, data) => instance.put(endpoint, data).then(res => res.data),
-  delete: (endpoint) => instance.delete(endpoint).then(res => res.data)
+  get: (endpoint) => instance.get(endpoint).then(res => res.data).catch(err => console.log(err)),
+  post: (endpoint, data) => instance.post(endpoint, data).then(res => res.data).catch(err => console.log(err)),
+  put: (endpoint, data) => instance.put(endpoint, data).then(res => res.data).catch(err => console.log(err)),
+  delete: (endpoint) => instance.delete(endpoint).then(res => res.data).catch(err => console.log(err))
 };
 
 export default apiClient;
