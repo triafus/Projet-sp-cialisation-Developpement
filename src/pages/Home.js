@@ -3,26 +3,22 @@ import { ProductCard } from '../components/ProductCard';
 
 export const Home = async () => {
   const products = await ProductService.getAll();
-
   window.allProducts = products;
+
   return `
-    <div class="space-y-8">
-      <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 class="text-3xl font-bold text-slate-900">Notre Catalogue</h1>
-          <p class="text-slate-500">Découvrez nos produits sélectionnés pour vous.</p>
-        </div>
-        <div class="relative max-w-sm w-full font-sans">
-          <input type="text" id="search-input" placeholder="Rechercher un produit..." class="search-input">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 top-2.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-      </header>
+    <section class="max-w-4xl mx-auto">
+      <div class="mb-20 text-center md:text-left">
+        <h1 class="text-5xl font-bold uppercase tracking-tighter mb-4">LSA COLLECTION</h1>
+        <p class="text-slate-400 text-xs tracking-[0.3em] uppercase font-medium">Épure & Minimalisme</p>
+      </div>
+
+      <div class="mb-16">
+        <input type="text" id="search-input" placeholder="RECHERCHE..." class="search-input text-center md:text-left">
+      </div>
 
       <div id="product-grid" class="product-grid">
-        ${products.map(product => ProductCard(product)).join('')}
+        ${products.map(p => ProductCard(p)).join('')}
       </div>
-    </div>
+    </section>
   `;
 };

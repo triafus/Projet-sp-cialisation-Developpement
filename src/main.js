@@ -61,6 +61,12 @@ document.addEventListener('click', (e) => {
     return;
   }
 
+  const cartBtn = e.target.closest('#cart-btn');
+  if (cartBtn && window.openCart) {
+    window.openCart();
+    return;
+  }
+
   const logoutBtn = e.target.closest('#logout-btn');
   if (logoutBtn) {
     UserService.logout().then(() => {
@@ -69,43 +75,24 @@ document.addEventListener('click', (e) => {
     });
     return;
   }
-
-  const cartBtn = e.target.closest('#cart-btn');
-  if (cartBtn) {
-    const drawer = document.querySelector('#cart-drawer');
-    const overlay = document.querySelector('#cart-overlay');
-    if (drawer && overlay) {
-      drawer.classList.remove('translate-x-full');
-      overlay.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-    }
-    return;
-  }
-
-  const addToCartBtn = e.target.closest('.add-to-cart');
-  if (addToCartBtn) {
-    const product = JSON.parse(addToCartBtn.dataset.product);
-    CartStore.addItem(product);
-    return;
-  }
-
-  const qtyBtn = e.target.closest('.cart-qty-btn');
-  if (qtyBtn) {
-    const { id, action } = qtyBtn.dataset;
-    const item = CartStore.getState().find(i => i.id === parseInt(id));
-    if (item) {
-      const newQty = action === 'increase' ? item.quantity + 1 : item.quantity - 1;
-      CartStore.updateQuantity(parseInt(id), newQty);
-    }
-    return;
-  }
-
-  const removeBtn = e.target.closest('.cart-remove-btn');
-  if (removeBtn) {
-    CartStore.removeItem(parseInt(removeBtn.dataset.id));
-    return;
-  }
 });
+
+// Ajout des fonctions globales pour les actions du panier simplifiées
+window.addToCart = (id) => {
+  const product = window.allProducts.find(p => p.id === id);
+  if (product) CartStore.addItem(product);
+};
+
+window.removeFromCart = (id) => {
+  CartStore.removeItem(id);
+};
+
+window.updateQty = (id, delta) => {
+  const item = CartStore.getState().find(i => i.id === id);
+  if (item) {
+    CartStore.updateQuantity(id, item.quantity + delta);
+  }
+};
 
 document.addEventListener('input', (e) => {
   if (e.target.id === 'search-input') {
