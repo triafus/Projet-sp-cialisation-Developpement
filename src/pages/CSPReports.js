@@ -1,36 +1,36 @@
 import { ReportService } from '../services/reportService';
 
 export const CSPReports = async () => {
-  const data = await ReportService.getCSPReports();
-  const reports = data?.reports || [];
+  const reports = await ReportService.getCSPReports();
 
   return `
-    <div class="space-y-6">
-      <div>
-        <h1 class="text-3xl font-bold text-slate-900 border-l-4 border-slate-800 pl-4">Rapports de Sécurité (CSP)</h1>
-        <p class="text-slate-500 mt-2 ml-5">Journal des violations de la politique de sécurité du contenu.</p>
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-16">
+        <h1 class="text-4xl font-bold uppercase tracking-tighter text-slate-200">Security Reports</h1>
+        <p class="text-[10px] uppercase tracking-[0.4em] text-slate-400 mt-2">CSP Audit Logs</p>
       </div>
 
-      <div class="admin-table-container shadow-sm">
+      <div class="overflow-x-auto">
         <table class="admin-table">
           <thead>
-            <tr class="bg-slate-800">
-              <th class="text-white">Directive Violée</th>
-              <th class="text-white">URI Bloqué</th>
-              <th class="text-white">Date de l'incident</th>
+            <tr>
+              <th>Cible</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th class="text-right">Gravité</th>
             </tr>
           </thead>
           <tbody>
-            ${reports.length > 0 
-              ? reports.map(r => `
-                <tr class="hover:bg-slate-50 transition-colors">
-                  <td class="font-mono text-xs text-red-600 font-bold">${r.directive}</td>
-                  <td class="text-xs text-slate-600 break-all">${r.blockedUri}</td>
-                  <td class="text-xs text-slate-400 font-sans italic">${new Date(r.timestamp).toLocaleString('fr-FR')}</td>
-                </tr>
-              `).join('')
-              : `<tr><td colspan="3" class="text-center py-12 text-slate-400 italic">Aucun incident de sécurité rapporté.</td></tr>`
-            }
+            ${reports.length > 0 ? reports.map(r => `
+              <tr>
+                <td class="font-mono text-[10px] text-slate-500 truncate max-w-[200px]">${r.document_uri}</td>
+                <td class="font-bold text-xs uppercase tracking-tight">${r.violated_directive}</td>
+                <td class="text-slate-400 text-[10px]">${new Date().toLocaleDateString()}</td>
+                <td class="text-right">
+                  <span class="text-[9px] font-black uppercase text-red-400 border border-red-100 px-2 py-0.5">High</span>
+                </td>
+              </tr>
+            `).join('') : '<tr><td colspan="4" class="text-center py-20 text-slate-300 uppercase text-xs tracking-widest italic">Aucun incident détecté</td></tr>'}
           </tbody>
         </table>
       </div>
