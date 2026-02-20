@@ -4,7 +4,6 @@ import { Home } from './pages/Home';
 import { Auth } from './pages/Auth';
 import { Dashboard } from './pages/Dashboard';
 import { CSPReports } from './pages/CSPReports';
-import { Stats } from './pages/Stats';
 import { ROUTES } from './routes/routes';
 import { UserService } from './services/userService';
 import { CartStore } from './state/cartStore';
@@ -15,8 +14,7 @@ const app = document.querySelector('#app');
 const navigate = async () => {
   const path = window.location.pathname;
   const user = localStorage.getItem('user');
-  
-  const protectedRoutes = [ROUTES.DASHBOARD, ROUTES.SECURITY, ROUTES.STATS];
+  const protectedRoutes = [ROUTES.DASHBOARD, ROUTES.SECURITY];
 
   if (protectedRoutes.includes(path) && !user) {
     window.history.pushState({}, '', ROUTES.AUTH);
@@ -36,8 +34,6 @@ const navigate = async () => {
     content = await Dashboard();
   } else if (path === ROUTES.SECURITY) {
     content = await CSPReports();
-  } else if (path === ROUTES.STATS) {
-    content = await Stats();
   } else {
     content = await Home();
   }

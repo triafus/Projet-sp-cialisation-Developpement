@@ -33,7 +33,6 @@ export const Navbar = () => {
             ? `
               <a href="${ROUTES.DASHBOARD}" class="hover:text-blue-400 transition-colors">Dashboard</a>
               <a href="${ROUTES.SECURITY}" class="hover:text-blue-400 transition-colors">Sécurité</a>
-              <a href="${ROUTES.STATS}" class="hover:text-blue-400 transition-colors">Stats</a>
               <button id="logout-btn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-medium transition-all text-white">Déconnexion</button>
             `
             : `<a href="${ROUTES.AUTH}" class="btn-primary">Connexion</a>`
