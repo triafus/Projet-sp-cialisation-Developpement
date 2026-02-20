@@ -1,10 +1,14 @@
 import axios from 'axios';
 import { ROUTES } from '../routes/routes';
+import { Toast } from '../utils/toast';
 
 export const API_BASE_URL = "http://localhost:5000/api";
 
 const instance = axios.create({
-  baseURL: API_BASE_URL
+  baseURL: API_BASE_URL,
+  withCredentials: true,
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN'
 });
 
 instance.interceptors.request.use(
@@ -25,16 +29,19 @@ instance.interceptors.response.use(
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       window.location.href = ROUTES.AUTH;
+    } else {
+      const msg = error.response?.data?.message || "Une erreur réseau est survenue.";
+      Toast.show(msg, 'error');
     }
     return Promise.reject(error);
   }
 );
 
 const apiClient = {
-  get: (endpoint) => instance.get(endpoint).then(res => res.data).catch(err => console.log(err)),
-  post: (endpoint, data) => instance.post(endpoint, data).then(res => res.data).catch(err => console.log(err)),
-  put: (endpoint, data) => instance.put(endpoint, data).then(res => res.data).catch(err => console.log(err)),
-  delete: (endpoint) => instance.delete(endpoint).then(res => res.data).catch(err => console.log(err))
+  get: (endpoint) => instance.get(endpoint).then(res => res.data),
+  post: (endpoint, data) => instance.post(endpoint, data).then(res => res.data),
+  put: (endpoint, data) => instance.put(endpoint, data).then(res => res.data),
+  delete: (endpoint) => instance.delete(endpoint).then(res => res.data)
 };
 
 export default apiClient;
